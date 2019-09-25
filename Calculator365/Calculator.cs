@@ -85,8 +85,8 @@ namespace Calculator365
                 long tempLong;
                 if (long.TryParse(s, out tempLong))
                 {
-                    if (tempLong >= 0) result.Add(tempLong);
-                    else negativeNumbers += "," + tempLong;
+                    if (tempLong >= 0 && tempLong <= 1000) result.Add(tempLong);
+                    else if(tempLong < 0) negativeNumbers += "," + tempLong;
                 }
             }
             if (negativeNumbers.Length > 0)

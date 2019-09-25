@@ -171,20 +171,21 @@ namespace Calculator365Test
             Assert.ThrowsException<ArgumentException>(() => calc.GetValidArray(arg1));
         }
 
-        //check for overflow
+        //check for number over 1000
         [TestMethod]
-        public void OverFlow()
+        public void OverThou()
         {
             //Setup
-            string arg1 = "9223372036854775807";
+            string arg1 = "1001";
             string arg2 = "1";
-            string expected = "Overflow";
+            string arg3 = "2";
+            string expected = "3";
             string actual;
             Calculator calc = new Calculator();
 
 
             //Assert
-            actual = calc.Calculate(arg1 + ',' + arg2);
+            actual = calc.Calculate(arg1 + ',' + arg2 + ',' + arg3);
             Assert.AreEqual(expected, actual);
         }
 
