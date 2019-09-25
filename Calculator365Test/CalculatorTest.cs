@@ -305,13 +305,13 @@ namespace Calculator365Test
 
         //testing with more than 2 values
         [TestMethod]
-        public void tooLong()
+        public void ThreeArgs()
         {
             //Setup
-            string arg1 = "p";
-            string arg2 = "1";
-            string arg3 = "5";
-            string expected = "More than 2 numbers";
+            string arg1 = "1";
+            string arg2 = "2";
+            string arg3 = "3";
+            string expected = "6";
             string actual;
             Calculator calc = new Calculator();
 

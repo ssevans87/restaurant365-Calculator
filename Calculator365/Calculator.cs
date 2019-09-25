@@ -25,7 +25,7 @@ namespace Calculator365
             //sepperating numbers
             string[] tempTokens = SeperateNumbers(arg1, delimiters);
 
-            if (tempTokens.Length > 2) return "More than 2 numbers";
+            //if (tempTokens.Length > 2) return "More than 2 numbers";
 
             //checking each token if it is a valid number
             tokens = GetValidArray(tempTokens);
