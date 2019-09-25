@@ -74,6 +74,42 @@ namespace Calculator365Test
         }
 
         [TestMethod]
+        public void testSeperateNumbers5()
+        {
+            //Setup
+            string arg1 = "k\n1";
+            //string [] delim = {}
+            List<string> arg2 = new List<string>();
+            
+            string[] expected = { "k", "1" };
+            string[] actual;
+            Calculator calc = new Calculator();
+
+            //SeperateNumbers(string toSeperate, List<string> newDelimiters)
+            //Assert
+            actual = calc.SeperateNumbers(arg1, arg2);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void testSeperateNumbers6()
+        {
+            //Setup
+            string arg1 = "k\n1,h";
+            //string [] delim = {}
+            List<string> arg2 = new List<string>();
+
+            string[] expected = { "k", "1", "h" };
+            string[] actual;
+            Calculator calc = new Calculator();
+
+            //SeperateNumbers(string toSeperate, List<string> newDelimiters)
+            //Assert
+            actual = calc.SeperateNumbers(arg1, arg2);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void testGetValidArray1()
         {
             //Setup

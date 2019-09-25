@@ -9,6 +9,19 @@ namespace Calculator365
         {
             Calculator calc = new Calculator();
             if(args.Length >= 1 )Console.WriteLine(calc.Calculate(args[0]));
+            //Setup
+            string arg1 = "k,1";
+            //string [] delim = {}
+            List<string> arg2 = new List<string>();
+
+            string[] expected = { "k", "1" };
+            string[] actual;
+
+
+            //SeperateNumbers(string toSeperate, List<string> newDelimiters)
+            //Assert
+            actual = calc.SeperateNumbers(arg1, arg2);
+
         }
 
         //perform calculation on given string
@@ -19,6 +32,7 @@ namespace Calculator365
 
             //list of delimiters
             List<string> delimiters = new List<string>();
+            
 
             long result = 0;
 
@@ -49,11 +63,15 @@ namespace Calculator365
         //seperating numbers by delimiters
         public string[] SeperateNumbers(string toSeperate, List<string> newDelimiters)
         {
+            List<string> allDelims = newDelimiters;
+            
+            //adding basic delimiters
+            string[] basicDelims = { ",", "\n" };
+            allDelims.AddRange(basicDelims);
 
-            string[] tempTokens = toSeperate.Split(',');
-
-
-            return tempTokens;
+            // seperating by delimiters
+            string[] result = toSeperate.Split(newDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+            return result;
         }
 
         //return only valid numbers
