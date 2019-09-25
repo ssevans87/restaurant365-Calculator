@@ -1,0 +1,11 @@
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\bin\Debug\netcoreapp3.0\Calculator365.exe
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\bin\Debug\netcoreapp3.0\Calculator365.deps.json
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\bin\Debug\netcoreapp3.0\Calculator365.runtimeconfig.json
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\bin\Debug\netcoreapp3.0\Calculator365.runtimeconfig.dev.json
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\bin\Debug\netcoreapp3.0\Calculator365.dll
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\bin\Debug\netcoreapp3.0\Calculator365.pdb
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\obj\Debug\netcoreapp3.0\Calculator365.csprojAssemblyReference.cache
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\obj\Debug\netcoreapp3.0\Calculator365.AssemblyInfoInputs.cache
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\obj\Debug\netcoreapp3.0\Calculator365.AssemblyInfo.cs
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\obj\Debug\netcoreapp3.0\Calculator365.dll
+C:\Users\skyle\OneDrive\Documents\GitHub\restaurant365-Calculator\Calculator365\obj\Debug\netcoreapp3.0\Calculator365.pdb
