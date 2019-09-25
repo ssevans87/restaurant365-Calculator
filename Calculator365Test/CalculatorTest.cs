@@ -137,8 +137,7 @@ namespace Calculator365Test
 
             //GetValidArray(string[] toCheck)
             //Assert
-            actual = calc.GetValidArray(arg1);
-            CollectionAssert.AreEqual(expected, actual);
+            Assert.ThrowsException<ArgumentException>(() => calc.GetValidArray(arg1));
         }
 
         [TestMethod]
@@ -155,6 +154,21 @@ namespace Calculator365Test
             //Assert
             actual = calc.GetValidArray(arg1);
             CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void testGetValidArray4()
+        {
+            //Setup
+            string[] arg1 = { "-1" };
+            List<string> arg2 = new List<string>();
+            long[] expected = {  };
+            long[] actual;
+            Calculator calc = new Calculator();
+
+            //GetValidArray(string[] toCheck)
+            //Assert
+            Assert.ThrowsException<ArgumentException>(() => calc.GetValidArray(arg1));
         }
 
         //check for overflow
@@ -212,14 +226,13 @@ namespace Calculator365Test
         {
             //Setup
             string arg1 = "-1";
-            string expected = "-1";
+            string expected = "0";
             string actual;
             Calculator calc = new Calculator();
 
 
             //Assert
-            actual = calc.Calculate(arg1);
-            Assert.AreEqual(expected, actual);
+            Assert.ThrowsException<ArgumentException>(() => calc.Calculate(arg1));
         }
 
         //testing with one invalid char
@@ -278,14 +291,13 @@ namespace Calculator365Test
             //Setup
             string arg1 = "-1";
             string arg2 = "-2";
-            string expected = "-3";
+            string expected = "0";
             string actual;
             Calculator calc = new Calculator();
 
 
             //Assert
-            actual = calc.Calculate(arg1 + ',' + arg2);
-            Assert.AreEqual(expected, actual);
+            Assert.ThrowsException<ArgumentException>(() => calc.Calculate(arg1 + ',' + arg2));
         }
 
         //testing with two opposite sign numbers
@@ -295,14 +307,13 @@ namespace Calculator365Test
             //Setup
             string arg1 = "1";
             string arg2 = "-2";
-            string expected = "-1";
+            string expected = "1";
             string actual;
             Calculator calc = new Calculator();
 
 
             //Assert
-            actual = calc.Calculate(arg1 + ',' + arg2);
-            Assert.AreEqual(expected, actual);
+            Assert.ThrowsException<ArgumentException>(() => calc.Calculate(arg1 + ',' + arg2));
         }
 
         //testing with one valid one invalid

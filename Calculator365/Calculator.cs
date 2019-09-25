@@ -77,12 +77,23 @@ namespace Calculator365
         //return only valid numbers
         public long[] GetValidArray(string[] toCheck)
         {
+            string negativeNumbers = "";
             List<long> result = new List<long>();
             //checking each token if it is a valid number
             foreach (string s in toCheck)
             {
                 long tempLong;
-                if (long.TryParse(s, out tempLong)) result.Add(tempLong);
+                if (long.TryParse(s, out tempLong))
+                {
+                    if (tempLong >= 0) result.Add(tempLong);
+                    else negativeNumbers += "," + tempLong;
+                }
+            }
+            if (negativeNumbers.Length > 0)
+            {
+
+                System.ArgumentException argEx = new System.ArgumentException("Negative numbers denied", negativeNumbers);
+                throw argEx;
             }
 
 
