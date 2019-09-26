@@ -109,12 +109,6 @@ namespace Calculator365
             string delims = delString.Substring(2);
             string[] splitter = { "[", "]" };
             string[] result = delims.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
-            if(result.Length > 1)
-            {
-                System.ArgumentException argEx = new System.ArgumentException("Only one custom delim allowed", delString);
-                throw argEx;
-
-            }
             List<string> final = new List<string>();
             final.AddRange(result);
             return final;

@@ -220,19 +220,6 @@ namespace Calculator365Test
         }
 
 
-        [TestMethod]
-        public void testExtractDelims6()
-        {
-            //Setup
-            string arg1 = "//[;][?]";
-            List<string> expected = new List<string>();
-            expected.Add(";");
-            List<string> actual;
-            Calculator calc = new Calculator();
-
-            //Assert
-            Assert.ThrowsException<ArgumentException>(() => calc.ExtractDelims(arg1));
-        }
 
         //check for number over 1000
         [TestMethod]
@@ -432,13 +419,29 @@ namespace Calculator365Test
             Assert.AreEqual(expected, actual);
         }
 
-        //testing with more than custom single deliminator
+        //testing with custom single deliminator
         [TestMethod]
-        public void CustomArgs()
+        public void CustomArgs1()
         {
             //Setup
-            string arg1 = "//;\n2;5";
+            string arg1 = "//[;]\n2;5";
             string expected = "7";
+            string actual;
+            Calculator calc = new Calculator();
+
+
+            //Assert
+            actual = calc.Calculate(arg1);
+            Assert.AreEqual(expected, actual);
+        }
+
+        //testing with custom single deliminator
+        [TestMethod]
+        public void CustomArgs2()
+        {
+            //Setup
+            string arg1 = "//[*][!!][r9r]\n11r9r22*33!!44";
+            string expected = "110";
             string actual;
             Calculator calc = new Calculator();
 
