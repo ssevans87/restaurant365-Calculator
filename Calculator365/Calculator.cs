@@ -9,35 +9,38 @@ namespace Calculator365
         {
             Calculator calc = new Calculator();
             if(args.Length >= 1 )Console.WriteLine(calc.Calculate(args[0]));
-            //Setup
-            string arg1 = "k,1";
-            //string [] delim = {}
-            List<string> arg2 = new List<string>();
-
-            string[] expected = { "k", "1" };
-            string[] actual;
-
-
-            //SeperateNumbers(string toSeperate, List<string> newDelimiters)
-            //Assert
-            actual = calc.SeperateNumbers(arg1, arg2);
-
         }
 
         //perform calculation on given string
         public string Calculate(string arg1)
         {
-            //list of valid numbers to add together
-            long[] tokens;
 
             //list of delimiters
             List<string> delimiters = new List<string>();
+            string nums = "";
+            string delims = "";
+
+            //splitting delims from numbers
+            if (arg1.Length > 3 && arg1.Substring(0, 2) == "//")
+            {
+                int split = arg1.IndexOf('\n');
+                delims = arg1.Substring(0, split);
+                nums = arg1.Substring(split);
+                delimiters = ExtractDelims(delims);
+            }
+            else nums = arg1;
+            
+
+
+            //list of valid numbers to add together
+            long[] tokens;
+
             
 
             long result = 0;
 
             //sepperating numbers
-            string[] tempTokens = SeperateNumbers(arg1, delimiters);
+            string[] tempTokens = SeperateNumbers(nums, delimiters);
 
             //if (tempTokens.Length > 2) return "More than 2 numbers";
 
@@ -98,6 +101,24 @@ namespace Calculator365
 
 
             return result.ToArray();
+        }
+
+        //extract custom delimiter
+        public List<string> ExtractDelims(string delString)
+        {
+            List<string> result = new List<string>();
+            //checking for more than one delimiter
+            if (delString.Length > 3)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Only one single character delim allowed", delString);
+                throw argEx;
+
+            }
+            string delims = delString.Substring(2);
+            result.Add("" + delims[0]);
+
+
+            return result;
         }
     }
 }
