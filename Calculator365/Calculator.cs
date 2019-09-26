@@ -25,7 +25,7 @@ namespace Calculator365
             {
                 int split = arg1.IndexOf('\n');
                 delims = arg1.Substring(0, split);
-                nums = arg1.Substring(split);
+                nums = arg1.Substring(split+1);
                 delimiters = ExtractDelims(delims);
             }
             else nums = arg1;
@@ -47,20 +47,25 @@ namespace Calculator365
             //checking each token if it is a valid number
             tokens = GetValidArray(tempTokens);
 
-
+            string process = "";
             //checking for no valid numbers
             if (tokens.Length == 0) result = 0;
-            else if (tokens.Length == 1) result = tokens[0];
+            else if (tokens.Length == 1)
+            {
+                result = tokens[0];
+                process += tokens[0];
+            }
             else
             {
                 foreach (long l in tokens)
                 {
-                    try { result = checked(result + l); }
-                    catch (OverflowException) { return "Overflow"; }
+                    result += l;
+                    process += "+" + l;
                 }
+                process = process.Substring(1);
             }
 
-            return result.ToString();
+            return process + " = " + result.ToString();
         }
 
         //seperating numbers by delimiters
@@ -73,7 +78,7 @@ namespace Calculator365
             allDelims.AddRange(basicDelims);
 
             // seperating by delimiters
-            string[] result = toSeperate.Split(newDelimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+            string[] result = toSeperate.Split(newDelimiters.ToArray(), StringSplitOptions.None);
             return result;
         }
 
@@ -88,9 +93,14 @@ namespace Calculator365
                 long tempLong;
                 if (long.TryParse(s, out tempLong))
                 {
-                    if (tempLong >= 0 && tempLong <= 1000) result.Add(tempLong);
-                    else if(tempLong < 0) negativeNumbers += "," + tempLong;
+
+
+                    if (tempLong < 0) negativeNumbers += "," + tempLong;
+                    else if ( tempLong > 1000) result.Add(0);
+                    else result.Add(tempLong);
+
                 }
+                else result.Add(0);
             }
             if (negativeNumbers.Length > 0)
             {

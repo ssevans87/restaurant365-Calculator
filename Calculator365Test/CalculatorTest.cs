@@ -164,7 +164,7 @@ namespace Calculator365Test
             //Setup
             string[] arg1 = { "1", "k" };
             List<string> arg2 = new List<string>();
-            long[] expected = { 1};
+            long[] expected = { 1, 0};
             long[] actual;
             Calculator calc = new Calculator();
 
@@ -229,7 +229,7 @@ namespace Calculator365Test
             string arg1 = "1001";
             string arg2 = "1";
             string arg3 = "2";
-            string expected = "3";
+            string expected = "0+1+2 = 3";
             string actual;
             Calculator calc = new Calculator();
 
@@ -245,7 +245,7 @@ namespace Calculator365Test
         {
             //Setup
             string arg1 = "";
-            string expected = "0";
+            string expected = "0 = 0";
             string actual;
             Calculator calc = new Calculator();
 
@@ -261,7 +261,7 @@ namespace Calculator365Test
         {
             //Setup
             string arg1 = "1";
-            string expected = "1";
+            string expected = "1 = 1";
             string actual;
             Calculator calc = new Calculator();
 
@@ -292,7 +292,7 @@ namespace Calculator365Test
         {
             //Setup
             string arg1 = "z";
-            string expected = "0";
+            string expected = "0 = 0";
             string actual;
             Calculator calc = new Calculator();
 
@@ -308,7 +308,7 @@ namespace Calculator365Test
         {
             //Setup
             string arg1 = "zzz";
-            string expected = "0";
+            string expected = "0 = 0";
             string actual;
             Calculator calc = new Calculator();
 
@@ -325,7 +325,7 @@ namespace Calculator365Test
             //Setup
             string arg1 = "1";
             string arg2 = "2";
-            string expected = "3";
+            string expected = "1+2 = 3";
             string actual;
             Calculator calc = new Calculator();
 
@@ -374,7 +374,7 @@ namespace Calculator365Test
             //Setup
             string arg1 = "1";
             string arg2 = "p";
-            string expected = "1";
+            string expected = "1+0 = 1";
             string actual;
             Calculator calc = new Calculator();
 
@@ -391,7 +391,7 @@ namespace Calculator365Test
             //Setup
             string arg1 = "p";
             string arg2 = "1";
-            string expected = "1";
+            string expected = "0+1 = 1";
             string actual;
             Calculator calc = new Calculator();
 
@@ -409,7 +409,7 @@ namespace Calculator365Test
             string arg1 = "1";
             string arg2 = "2";
             string arg3 = "3";
-            string expected = "6";
+            string expected = "1+2+3 = 6";
             string actual;
             Calculator calc = new Calculator();
 
@@ -425,7 +425,7 @@ namespace Calculator365Test
         {
             //Setup
             string arg1 = "//[;]\n2;5";
-            string expected = "7";
+            string expected = "2+5 = 7";
             string actual;
             Calculator calc = new Calculator();
 
@@ -441,7 +441,7 @@ namespace Calculator365Test
         {
             //Setup
             string arg1 = "//[*][!!][r9r]\n11r9r22*33!!44";
-            string expected = "110";
+            string expected = "11+22+33+44 = 110";
             string actual;
             Calculator calc = new Calculator();
 
