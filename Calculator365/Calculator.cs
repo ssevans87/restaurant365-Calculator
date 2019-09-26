@@ -106,19 +106,18 @@ namespace Calculator365
         //extract custom delimiter
         public List<string> ExtractDelims(string delString)
         {
-            List<string> result = new List<string>();
-            //checking for more than one delimiter
-            if (delString.Length > 3)
+            string delims = delString.Substring(2);
+            string[] splitter = { "[", "]" };
+            string[] result = delims.Split(splitter, StringSplitOptions.RemoveEmptyEntries);
+            if(result.Length > 1)
             {
-                System.ArgumentException argEx = new System.ArgumentException("Only one single character delim allowed", delString);
+                System.ArgumentException argEx = new System.ArgumentException("Only one custom delim allowed", delString);
                 throw argEx;
 
             }
-            string delims = delString.Substring(2);
-            result.Add("" + delims[0]);
-
-
-            return result;
+            List<string> final = new List<string>();
+            final.AddRange(result);
+            return final;
         }
     }
 }

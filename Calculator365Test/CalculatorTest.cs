@@ -193,7 +193,7 @@ namespace Calculator365Test
         public void testExtractDelims1()
         {
             //Setup
-            string arg1 = "//;";
+            string arg1 = "//[;]";
             List<string> expected = new List<string>() ;
             expected.Add(";");
             List<string> actual;
@@ -208,7 +208,23 @@ namespace Calculator365Test
         public void testExtractDelims2()
         {
             //Setup
-            string arg1 = "//;?";
+            string arg1 = "//[***]";
+            List<string> expected = new List<string>();
+            expected.Add("***");
+            List<string> actual;
+            Calculator calc = new Calculator();
+
+            //Assert
+            actual = calc.ExtractDelims(arg1);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void testExtractDelims6()
+        {
+            //Setup
+            string arg1 = "//[;][?]";
             List<string> expected = new List<string>();
             expected.Add(";");
             List<string> actual;
