@@ -5,7 +5,6 @@ namespace Calculator365
 {
     public class Calculator
     {
-        private static bool stop = false;
         // Main method accepts args as follows.
         // args[0] : Formatted string to be processed.
         // args[1] : Alternate single character delimiter. - Defaults to '\n'
@@ -36,13 +35,6 @@ namespace Calculator365
             // Setting formatted string
             if (args.Length > 0) formString = args[0];
 
-            // Keep track of currernt count
-            long count = 0;
-
-            // Track current arithmatic
-            string math = "";
-
-           
             
 
             // Detecting Ctrl+C
@@ -51,27 +43,25 @@ namespace Calculator365
                 e.Cancel = true;
             };
             // Loop until Ctrl+C
-            while (true)
+            try
             {
-                string result = calc.Calculate(formString, altDelim, allowNeg, upperBound);
-                long tempOut;
-
-                // Split total from math
-                string[] split = result.Split('=');
-                if (result.Length == 0) break;
-                if (split.Length > 1)
+                while (true)
                 {
-                    if (math.Length > 0) math += "+";
-                    math+= split[0].Trim();
-                    long.TryParse(split[1], out tempOut);
+                    string result = calc.Calculate(formString, altDelim, allowNeg, upperBound);
+                    Console.WriteLine(result);
+                    string tempLine = Console.ReadLine();
+                    if (tempLine == null) break;
+                    if (tempLine.Length > 0)
+                    {
+                        if (tempLine[0] != ',') formString += ",";
+                        formString += tempLine;
+                    }
+
                 }
-                else long.TryParse(split[0], out tempOut);
-
-                // Add total
-                count += tempOut;
-
-                Console.WriteLine(math + " = " + count);
-                formString = Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
 
         }
@@ -83,6 +73,7 @@ namespace Calculator365
         // upperBound : Upper bound of numbers.
         public string Calculate(string formString, char altDelim, bool allowNeg, long upperBound)
         {
+            // Check for null string input
             if (formString == null) return"";
             // List of delimiters
             List<string> delimiters = new List<string>();
@@ -102,11 +93,8 @@ namespace Calculator365
 
 
             // List of valid numbers to add together
-            long[] tokens;
+            string[] tokens;
 
-            
-
-            long result = 0;
 
             //sepperating numbers
             string[] tempTokens = SeperateNumbers(nums, delimiters, altDelim);
@@ -116,25 +104,7 @@ namespace Calculator365
             //checking each token if it is a valid number
             tokens = GetValidArray(tempTokens, allowNeg, upperBound);
 
-            string process = "";
-            //checking for no valid numbers
-            if (tokens.Length == 0) result = 0;
-            else if (tokens.Length == 1)
-            {
-                result = tokens[0];
-                process += tokens[0];
-            }
-            else
-            {
-                foreach (long l in tokens)
-                {
-                    result += l;
-                    process += "+" + l;
-                }
-                process = process.Substring(1);
-            }
-
-            return process + " = " + result.ToString();
+            return PerformMath(tokens);
         }
 
         //seperating numbers by delimiters
@@ -153,25 +123,43 @@ namespace Calculator365
         }
 
         //return only valid numbers
-        public long[] GetValidArray(string[] toCheck, bool allowNeg, long upperBound)
+        public string[] GetValidArray(string[] toCheck, bool allowNeg, long upperBound)
         {
             string negativeNumbers = "";
-            List<long> result = new List<long>();
-            //checking each token if it is a valid number
+            List<string> result = new List<string>();
+            // Op is used to check for two operators in a row
+            bool op = true;
+            // Checking each token if it is a valid number
             foreach (string s in toCheck)
             {
                 long tempLong;
                 if (long.TryParse(s, out tempLong))
                 {
 
-
                     if (!allowNeg && tempLong < 0) negativeNumbers += "," + tempLong;
-                    else if ( tempLong > upperBound) result.Add(0);
-                    else result.Add(tempLong);
+                    else if (tempLong > upperBound) result.Add("" + 0);
+                    else result.Add("" + tempLong);
+                    op = false;
 
                 }
-                else result.Add(0);
+                else if (s.Trim() == "+" || s.Trim() == "-" || s.Trim() == "*" || s.Trim() == "/")
+                {
+                    // Throw exception if 2 operators in a row 
+                    if (op)
+                    {
+                        System.ArgumentException argEx = new System.ArgumentException("Invalid operators");
+                        throw argEx;
+                    }
+                    op = true;
+                    result.Add(s.Trim());
+                }
+                else
+                {
+                    result.Add("0");
+                    op = false;
+                }
             }
+            // Throw exception if negative numbers are not allowed but found
             if (negativeNumbers.Length > 0)
             {
 
@@ -179,11 +167,17 @@ namespace Calculator365
                 throw argEx;
             }
 
+            // Throw exception if ending with an operator 
+            if (op)
+            {
+                System.ArgumentException argEx = new System.ArgumentException("Invalid operators");
+                throw argEx;
+            }
 
             return result.ToArray();
         }
 
-        //extract custom delimiter
+        // Extract custom delimiter
         public List<string> ExtractDelims(string delString)
         {
             string delims = delString.Substring(2);
@@ -192,6 +186,75 @@ namespace Calculator365
             List<string> final = new List<string>();
             final.AddRange(result);
             return final;
+        }
+
+        // Perform mathmatic functions
+        public string PerformMath(string[] input)
+        {
+            Stack<string> myStack1 = new Stack<string>();
+            Stack<string> myStack2 = new Stack<string>();
+            string math = "";
+            long count = 0;
+            bool num = false;
+            foreach (string s in input)
+            {
+                long tempLong;
+                if (long.TryParse(s, out tempLong))
+                {
+                    if (num) math += "+";
+                    math += s;
+                    num = true;
+                }
+                else
+                {
+                    num = false;
+                    math += s;
+                }
+
+            }
+
+            // Checking for multiplication or division
+            for (int i = 0; i < input.Length; i++)
+            {
+
+                if (input[i] == "*")
+                {
+                    i++;
+                    long a, b;
+                    long.TryParse(myStack1.Pop(), out a);
+                    long.TryParse(input[i], out b);
+                    myStack1.Push((a * b).ToString());
+                }
+                else if (input[i] == "/")
+                {
+
+                    i++;
+                    long a, b;
+                    long.TryParse(myStack1.Pop(), out a);
+                    long.TryParse(input[i], out b);
+                    myStack1.Push((a / b).ToString());
+                }
+                else myStack1.Push(input[i]);
+            }
+            // Reversing order
+            foreach (string s in myStack1) myStack2.Push(s);
+            bool subtract = false;
+            // Checking for addition and subrtraction
+            foreach (string s in myStack2)
+            {
+                long tempNum;
+                if (long.TryParse(s, out tempNum))
+                {
+                    // reverse sign if it is a negative number
+                    if (subtract) tempNum = 0 - tempNum;
+                    count += tempNum;
+                    subtract = false;
+                }
+                else if (s == "-") subtract = true;
+            }
+
+            string result = math + " = " + count;
+            return result;
         }
     }
 }

@@ -198,8 +198,8 @@ namespace Calculator365Test
             string[] arg1 = { "1" };
             bool arg2 = false;
             long arg3 = 1000;
-            long[] expected = {1 };
-            long[] actual;
+            string[] expected = {"1" };
+            string[] actual;
             Calculator calc = new Calculator();
 
             //GetValidArray(string[] toCheck)
@@ -215,8 +215,8 @@ namespace Calculator365Test
             string[] arg1 = { "1", "-2" };
             bool arg2 = false;
             long arg3 = 1000;
-            long[] expected = { 1,-2 };
-            long[] actual;
+            string[] expected = { "1","-2" };
+
             Calculator calc = new Calculator();
 
             //GetValidArray(string[] toCheck)
@@ -231,8 +231,8 @@ namespace Calculator365Test
             string[] arg1 = { "1", "k" };
             bool arg2 = false;
             long arg3 = 1000;
-            long[] expected = { 1, 0};
-            long[] actual;
+            string[] expected = { "1", "0"};
+            string[] actual;
             Calculator calc = new Calculator();
 
             //GetValidArray(string[] toCheck)
@@ -248,8 +248,7 @@ namespace Calculator365Test
             string[] arg1 = { "-1" };
             bool arg2 = false;
             long arg3 = 1000;
-            long[] expected = {  };
-            long[] actual;
+            string[] expected = {  };
             Calculator calc = new Calculator();
 
             //GetValidArray(string[] toCheck)
@@ -264,8 +263,8 @@ namespace Calculator365Test
             string[] arg1 = { "1","51" };
             bool arg2 = false;
             long arg3 = 50;
-            long[] expected = { 1,0 };
-            long[] actual;
+            string[] expected = { "1","0" };
+            string[] actual;
             Calculator calc = new Calculator();
 
             //GetValidArray(string[] toCheck)
@@ -281,8 +280,8 @@ namespace Calculator365Test
             string[] arg1 = { "1", "-2" };
             bool arg2 = true;
             long arg3 = 1000;
-            long[] expected = { 1, -2 };
-            long[] actual;
+            string[] expected = { "1", "-2" };
+            string[] actual;
             Calculator calc = new Calculator();
 
             //GetValidArray(string[] toCheck)
@@ -389,8 +388,8 @@ namespace Calculator365Test
             char arg2 = '\n';
             bool arg3 = false;
             long arg4 = 1000;
-            string expected = "0";
-            string actual;
+
+
             Calculator calc = new Calculator();
 
 
@@ -464,8 +463,8 @@ namespace Calculator365Test
             char arg2 = '\n';
             bool arg3 = false;
             long arg4 = 1000;
-            string expected = "0";
-            string actual;
+
+
             Calculator calc = new Calculator();
 
 
@@ -482,8 +481,7 @@ namespace Calculator365Test
             char arg2 = '\n';
             bool arg3 = false;
             long arg4 = 1000;
-            string expected = "1";
-            string actual;
+
             Calculator calc = new Calculator();
 
 
@@ -577,6 +575,61 @@ namespace Calculator365Test
             bool arg3 = false;
             long arg4 = 1000;
             string expected = "11+22+33+44 = 110";
+            string actual;
+            Calculator calc = new Calculator();
+
+
+            //Assert
+            actual = calc.Calculate(arg1, arg2, arg3, arg4);
+            Assert.AreEqual(expected, actual);
+        }
+
+        //testing with custom single deliminator
+        [TestMethod]
+        public void MultiplyTest()
+        {
+            //Setup
+            string arg1 = "4,*,4";
+            char arg2 = '\n';
+            bool arg3 = false;
+            long arg4 = 1000;
+            string expected = "4*4 = 16";
+            string actual;
+            Calculator calc = new Calculator();
+
+
+            //Assert
+            actual = calc.Calculate(arg1, arg2, arg3, arg4);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void DivideTest()
+        {
+            //Setup
+            string arg1 = "4,/,2";
+            char arg2 = '\n';
+            bool arg3 = false;
+            long arg4 = 1000;
+            string expected = "4/2 = 2";
+            string actual;
+            Calculator calc = new Calculator();
+
+
+            //Assert
+            actual = calc.Calculate(arg1, arg2, arg3, arg4);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void OrderOfOperTest()
+        {
+            //Setup
+            string arg1 = "2,+,4,*,4";
+            char arg2 = '\n';
+            bool arg3 = false;
+            long arg4 = 1000;
+            string expected = "2+4*4 = 18";
             string actual;
             Calculator calc = new Calculator();
 
