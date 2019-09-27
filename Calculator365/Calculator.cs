@@ -5,7 +5,7 @@ namespace Calculator365
 {
     public class Calculator
     {
-
+        private static bool stop = false;
         // Main method accepts args as follows.
         // args[0] : Formatted string to be processed.
         // args[1] : Alternate single character delimiter. - Defaults to '\n'
@@ -28,15 +28,51 @@ namespace Calculator365
             if (args.Length > 3) long.TryParse(args[3] , out upperBound);
 
             // Setting allowNeg if applicable
-            if (args.Length > 2 && args[2].Length >= 1 && args[2].ToLower()[0] == 't') allowNeg = false;
+            if (args.Length > 2 && args[2].Length >= 1 && args[2].ToLower()[0] == 't') allowNeg = true;
 
             // Setting altDelim if applicable
             if (args.Length > 1 && args[1].Length == 1 && args[1][0] == 't') altDelim = args[1][0];
 
+            // Setting formatted string
             if (args.Length > 0) formString = args[0];
-            else return;
 
-            Console.WriteLine(calc.Calculate(formString, altDelim, allowNeg, upperBound));
+            // Keep track of currernt count
+            long count = 0;
+
+            // Track current arithmatic
+            string math = "";
+
+           
+            
+
+            // Detecting Ctrl+C
+            Console.CancelKeyPress += delegate (object sender, ConsoleCancelEventArgs e) {
+                Console.WriteLine("out");
+                e.Cancel = true;
+            };
+            // Loop until Ctrl+C
+            while (true)
+            {
+                string result = calc.Calculate(formString, altDelim, allowNeg, upperBound);
+                long tempOut;
+
+                // Split total from math
+                string[] split = result.Split('=');
+                if (result.Length == 0) break;
+                if (split.Length > 1)
+                {
+                    if (math.Length > 0) math += "+";
+                    math+= split[0].Trim();
+                    long.TryParse(split[1], out tempOut);
+                }
+                else long.TryParse(split[0], out tempOut);
+
+                // Add total
+                count += tempOut;
+
+                Console.WriteLine(math + " = " + count);
+                formString = Console.ReadLine();
+            }
 
         }
 
@@ -47,7 +83,7 @@ namespace Calculator365
         // upperBound : Upper bound of numbers.
         public string Calculate(string formString, char altDelim, bool allowNeg, long upperBound)
         {
-
+            if (formString == null) return"";
             // List of delimiters
             List<string> delimiters = new List<string>();
             string nums = "";
